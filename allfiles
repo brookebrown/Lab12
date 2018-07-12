@@ -1,0 +1,255 @@
+::::::::::::::
+HashTable.java
+::::::::::::::
+// ********************************************************
+// Hash table implementation.
+// Assumption: A table contains unique items(at most one 
+//             item with a given search key at any time)
+// *********************************************************
+
+public class HashTable<K, V> implements HashTableInterface<K, V> 
+{
+	  private ChainNode[] table;     // hash table
+	  private int size = 0;          // size of ADT table
+	
+	  public HashTable() {
+	    table = new ChainNode[3];
+	  }  // end default constructor
+	
+	// table operations
+	  public boolean tableIsEmpty() {
+	    return size==0;
+	  }  // end tableIsEmpty
+	
+	  public int tableLength() {
+	    return size;
+	  }  // end tableLength
+
+
+	//implement the following 4 methods
+	public void tableInsert(K key, V value) throws HashException
+	{
+		//use Horner's rule to map the key (the String) to an integer, which will be the index of where the value will go in table
+		int index = getIndex(key);
+		//now that you have the index of where it will go, you add the value to beginning of chain node
+		if(tableIsEmpty()) {
+			ChainNode newNode = new ChainNode(key, value, null);
+			table[index]= newNode;
+		}
+		else {
+			ChainNode node = table[index];
+			ChainNode newNode = new ChainNode(key, value, node);
+		}
+	}
+	
+	public boolean tableDelete(K searchKey)
+	{
+		int index = getIndex(searchKey);
+		boolean found = false;
+		ChainNode search = table[index];
+		ChainNode delete = table[index];
+		while(search != null && !found) {
+			if(search.getKey().equals(searchKey)) {
+				found = true;
+				//found key, now delete
+				delete.setNext(search.getNext());
+			}
+			delete = search;
+			search = search.getNext();
+		}
+		return found;
+	}
+	
+	public V tableRetrieve(K searchKey)
+	{
+		int index = getIndex(searchKey);
+		boolean found = false;
+		ChainNode search = table[index];
+		V node = (V) table[index].getValue();
+		while(search != null && !found) {
+			if(search.getKey().equals(searchKey)) {
+				found = true;
+				node = (V) search.getValue();
+			}
+			search = search.getNext();
+		}
+		return node;
+	}
+	
+	public int hashIndex(K key)
+	{
+		return getIndex(key);
+	}
+	
+	private int getIndex(K key)
+	{ 
+		int r = 0;
+		String theKey = (String) key;
+		theKey = theKey.toLowerCase();
+		for(int i = 0; i < theKey.length(); i++) {
+		   	char c = theKey.charAt(i);
+			int k = c - 'a' + 1;
+			r = r + (k << (5*i));
+		}
+		return r % table.length;
+	}
+}
+::::::::::::::
+Driver.java
+::::::::::::::
+
+/* Purpose: Data Structure and Algorithms Lab 12 
+ * Status: sorta complete, getting errors :(
+ * Last update: 11/30/16
+ * Submitted: 11/30/16
+ * Comment: sample run attached
+ * @author: Brooke Brown
+ * @version: 2016.11.30
+ */
+
+import java.io.*;
+import java.util.*;
+
+public class Driver
+{
+    static BufferedReader stdin = new BufferedReader (new InputStreamReader(System.in));
+
+    public static void main(String args[]) throws IOException
+    {
+    	HashTable<String, Integer> hashtable = new HashTable<String, Integer>();
+
+        String askPrompt = 
+        		("   1.      Insert a symbol key with an associated value in the table \n"
+        		+ "   2.      Delete a symbol from the table\n"
+        		+ "   3.      Retrieve and display the value associated with a symbol key in the table \n"
+				+ "   4.      Display the hash index of a symbol key\n" 
+				+ "   5.      Exit program.\nEnter your input: ");
+        System.out.print(askPrompt);
+        int answer = Integer.parseInt(stdin.readLine().trim());
+        System.out.println(answer);
+        while(answer != 5) {
+            switch (answer) {
+            case 1: //insert symbol key with associated value in the table
+                System.out.println("You are now inserting a value and key into the table.");
+                System.out.print("   Enter value: ");
+                Integer value  = Integer.parseInt(stdin.readLine().trim());
+                System.out.println(value);
+                System.out.print("   Enter key: ");
+                String key  = stdin.readLine().trim();
+                System.out.println(key);
+                hashtable.tableInsert(key, value);
+                System.out.print(askPrompt);
+                answer = Integer.parseInt(stdin.readLine().trim());
+                System.out.println(answer);
+                break;
+            case 2: //remove symbol from table
+                System.out.print("    Enter symbol key to remove: ");
+                key = stdin.readLine().trim();
+                System.out.println(key);
+		if(!hashtable.tableDelete(key)) {
+			System.out.println("Key not found.");
+		}
+		else {
+                	System.out.println("Key " + key + " deleted.");
+		}
+                System.out.print(askPrompt);
+                answer = Integer.parseInt(stdin.readLine().trim());
+                System.out.println(answer);
+                break;
+            case 3: //retrieve symbol from list
+                System.out.print("    Enter symbol key to retrieve value from: ");
+                key = stdin.readLine().trim();
+                System.out.println(key);
+                System.out.println("Key " + key + "'s value: " + hashtable.tableRetrieve(key));
+                System.out.print(askPrompt);
+                answer = Integer.parseInt(stdin.readLine().trim());
+                System.out.println(answer);
+                break;
+            case 4: //display hashIndex of a symbol key
+                System.out.print("    Enter symbol key to retrieve index from: ");
+                key = stdin.readLine().trim();
+                System.out.println(key);
+                System.out.println("Key " + key + "'s index: " + hashtable.hashIndex(key));
+                System.out.print(askPrompt);
+                answer = Integer.parseInt(stdin.readLine().trim());
+                System.out.println(answer);
+                break;
+            default:
+                System.out.println("Oh no! You put an incorrect number. Try again!");
+                System.out.print(askPrompt);
+                answer = Integer.parseInt(stdin.readLine().trim());
+                System.out.println(answer);
+                break;
+            }
+        }
+        System.out.print("Exiting program... Good Bye!");
+    }
+}
+::::::::::::::
+1.output
+::::::::::::::
+   1.      Insert a symbol key with an associated value in the table 
+   2.      Delete a symbol from the table
+   3.      Retrieve and display the value associated with a symbol key in the table 
+   4.      Display the hash index of a symbol key
+   5.      Exit program.
+Enter your input: 1
+You are now inserting a value and key into the table.
+   Enter value: 8
+   Enter key: JOEYYY
+   1.      Insert a symbol key with an associated value in the table 
+   2.      Delete a symbol from the table
+   3.      Retrieve and display the value associated with a symbol key in the table 
+   4.      Display the hash index of a symbol key
+   5.      Exit program.
+Enter your input: 1
+You are now inserting a value and key into the table.
+   Enter value: 7
+   Enter key: HAROLD
+   1.      Insert a symbol key with an associated value in the table 
+   2.      Delete a symbol from the table
+   3.      Retrieve and display the value associated with a symbol key in the table 
+   4.      Display the hash index of a symbol key
+   5.      Exit program.
+Enter your input: 3
+    Enter symbol key to retrieve value from: HAROLD
+Key HAROLD's value: 7
+   1.      Insert a symbol key with an associated value in the table 
+   2.      Delete a symbol from the table
+   3.      Retrieve and display the value associated with a symbol key in the table 
+   4.      Display the hash index of a symbol key
+   5.      Exit program.
+Enter your input: 4
+    Enter symbol key to retrieve index from: HAROLD
+Key HAROLD's index: 0
+   1.      Insert a symbol key with an associated value in the table 
+   2.      Delete a symbol from the table
+   3.      Retrieve and display the value associated with a symbol key in the table 
+   4.      Display the hash index of a symbol key
+   5.      Exit program.
+Enter your input: 3
+    Enter symbol key to retrieve value from: JOEYYY
+Key JOEYYY's value: 8
+   1.      Insert a symbol key with an associated value in the table 
+   2.      Delete a symbol from the table
+   3.      Retrieve and display the value associated with a symbol key in the table 
+   4.      Display the hash index of a symbol key
+   5.      Exit program.
+Enter your input: 4
+    Enter symbol key to retrieve index from: JOEYYY
+Key JOEYYY's index: 2
+   1.      Insert a symbol key with an associated value in the table 
+   2.      Delete a symbol from the table
+   3.      Retrieve and display the value associated with a symbol key in the table 
+   4.      Display the hash index of a symbol key
+   5.      Exit program.
+Enter your input: 2
+    Enter symbol key to remove: JOEYYY
+Key JOEYYY deleted.
+   1.      Insert a symbol key with an associated value in the table 
+   2.      Delete a symbol from the table
+   3.      Retrieve and display the value associated with a symbol key in the table 
+   4.      Display the hash index of a symbol key
+   5.      Exit program.
+Enter your input: 5
+Exiting program... Good Bye!

@@ -1,0 +1,82 @@
+   1.      Insert a symbol key with an associated value in the table 
+   2.      Delete a symbol from the table
+   3.      Retrieve and display the value associated with a symbol key in the table 
+   4.      Display the hash index of a symbol key
+   5.      Exit program.
+Enter your input: 1
+You are now inserting a value and key into the table.
+   Enter value: 7
+   Enter key: brooke
+   1.      Insert a symbol key with an associated value in the table 
+   2.      Delete a symbol from the table
+   3.      Retrieve and display the value associated with a symbol key in the table 
+   4.      Display the hash index of a symbol key
+   5.      Exit program.
+Enter your input: 1
+You are now inserting a value and key into the table.
+   Enter value: 45
+   Enter key: jihn
+   1.      Insert a symbol key with an associated value in the table 
+   2.      Delete a symbol from the table
+   3.      Retrieve and display the value associated with a symbol key in the table 
+   4.      Display the hash index of a symbol key
+   5.      Exit program.
+Enter your input: 1
+You are now inserting a value and key into the table.
+   Enter value: 2
+   Enter key: larry
+   1.      Insert a symbol key with an associated value in the table 
+   2.      Delete a symbol from the table
+   3.      Retrieve and display the value associated with a symbol key in the table 
+   4.      Display the hash index of a symbol key
+   5.      Exit program.
+Enter your input: 3
+    Enter symbol key to retrieve value from: brooke
+Key brooke's value: 7
+   1.      Insert a symbol key with an associated value in the table 
+   2.      Delete a symbol from the table
+   3.      Retrieve and display the value associated with a symbol key in the table 
+   4.      Display the hash index of a symbol key
+   5.      Exit program.
+Enter your input: 3
+    Enter symbol key to retrieve value from: jihn
+Key jihn's value: 45
+   1.      Insert a symbol key with an associated value in the table 
+   2.      Delete a symbol from the table
+   3.      Retrieve and display the value associated with a symbol key in the table 
+   4.      Display the hash index of a symbol key
+   5.      Exit program.
+Enter your input: 3
+    Enter symbol key to retrieve value from: larry
+Key larry's value: 2
+   1.      Insert a symbol key with an associated value in the table 
+   2.      Delete a symbol from the table
+   3.      Retrieve and display the value associated with a symbol key in the table 
+   4.      Display the hash index of a symbol key
+   5.      Exit program.
+Enter your input: 4
+    Enter symbol key to retrieve index from: brooke
+Key brooke's index: 2
+   1.      Insert a symbol key with an associated value in the table 
+   2.      Delete a symbol from the table
+   3.      Retrieve and display the value associated with a symbol key in the table 
+   4.      Display the hash index of a symbol key
+   5.      Exit program.
+Enter your input: 4
+    Enter symbol key to retrieve index from: larry
+Key larry's index: 0
+   1.      Insert a symbol key with an associated value in the table 
+   2.      Delete a symbol from the table
+   3.      Retrieve and display the value associated with a symbol key in the table 
+   4.      Display the hash index of a symbol key
+   5.      Exit program.
+Enter your input: 2
+    Enter symbol key to remove: brooke
+Key brooke deleted.
+   1.      Insert a symbol key with an associated value in the table 
+   2.      Delete a symbol from the table
+   3.      Retrieve and display the value associated with a symbol key in the table 
+   4.      Display the hash index of a symbol key
+   5.      Exit program.
+Enter your input: 5
+Exiting program... Good Bye!
